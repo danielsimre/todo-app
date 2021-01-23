@@ -1,19 +1,24 @@
 import * as React from "react";
 import { Formik, Field, Form } from "formik";
 
-
 interface Task {
     attributes: {
         title: string,
-        description: string;
+        description: string,
+        status: boolean,
+        "user-id": number;
     }
 }
 
-function AddTask(): JSX.Element {
+interface User {
+    userid: number;
+}
+
+function AddTaskForm(props: User): JSX.Element {
     const handleSubmit = (values: Task) => {
         const requestTasks = async () => {
             const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
-            const response = await fetch("/api/tasks", {
+            const response = await fetch("/api/v1/tasks", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -38,8 +43,9 @@ function AddTask(): JSX.Element {
                     attributes: {
                         title: "",
                         description: "",
-                        status: false
-                    }
+                        status: false,
+                        "user-id": props.userid
+                    },
                 }}
                 onSubmit={handleSubmit}
                 render={() => (
@@ -56,4 +62,4 @@ function AddTask(): JSX.Element {
     );
 }
 
-export default AddTask;
+export default AddTaskForm;

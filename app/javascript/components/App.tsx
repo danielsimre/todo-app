@@ -1,18 +1,26 @@
 import * as React from "react";
+import { render } from "react-dom";
 import { Router, RouteComponentProps } from "@reach/router";
-import TaskList from "./TaskList";
-import AddTask from "./AddTask";
+import TaskMenu from "./TaskMenu";
+import { isPropertySignature } from "typescript";
 
-function App(): JSX.Element {
-  return (
-    <Router>
-      <RouterPage path="/" pageComponent={<><AddTask /> <br /> <TaskList /></>} />
-    </Router>
+interface User {
+     current_user: {
+       id: number;
+     }
+  };
+
+function App(props: User): JSX.Element {
+   return (
+      <Router>
+        <RouterPage path="/" 
+                    render={<TaskMenu userid = {props.current_user.id}/>}/>
+      </Router>
   );
 }
 
 const RouterPage = (
-  props: { pageComponent: JSX.Element } & RouteComponentProps
-) => props.pageComponent;
+  props: { render: JSX.Element } & RouteComponentProps
+) => props.render;
 
 export default App;

@@ -2,20 +2,25 @@ import * as React from "react";
 import TaskComponent from './TaskComponent';
 
 interface Task {
-  id: string;
+  id: number;
   attributes: {
     title: string,
     description: string;
     status: boolean;
+    user_id: number;
   }
 }
 
-function TaskList(): JSX.Element {
+interface User {
+  userid: number;
+}
+
+function TaskList(props: User): JSX.Element {
   const [tasks, setTasks] = React.useState<Task[]>([]);
 
   React.useEffect(() => {
     const requestTasks = async () => {
-      const response = await fetch("/api/tasks");
+      const response = await fetch("/api/v1/users/"+ props.userid +"/tasks/");
       const { data } = await response.json();
       setTasks(data);
     };

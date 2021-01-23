@@ -57,3 +57,6 @@ gem "react-rails", "~> 2.6"
 
 # RESTful API
 gem 'jsonapi-resources'
+
+# Authentication for user login
+gem 'devise'

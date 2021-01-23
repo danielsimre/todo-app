@@ -1,21 +1,23 @@
 import * as React from "react";
+import TagMenu from "./TagMenu";
 
 type Task = {
   type: string;
-  id: string;
+  id: number;
   attributes: {
     title: string,
     description: string;
     status: boolean;
+    user_id: number;
   }
 }
 
 function TaskComponent(props: Task): JSX.Element {
   // Delete selected entry
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: number) => {
     const requestTasks = async () => {
       const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
-      const response = await fetch("/api/tasks/" + id, {
+      const response = await fetch("/api/v1/tasks/" + id, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -35,7 +37,7 @@ function TaskComponent(props: Task): JSX.Element {
     values.attributes.status = !values.attributes.status;
     const requestTasks = async () => {
       const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
-      const response = await fetch("/api/tasks/" + values.id, {
+      const response = await fetch("/api/v1/tasks/" + values.id, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -60,6 +62,7 @@ function TaskComponent(props: Task): JSX.Element {
       <p>{props.attributes.description}</p>
       <button type="button" onClick={() => handleDelete(props.id)}>Delete</button>
     </form>
+    <TagMenu taskid = {props.id}/>
   </div>);
 }
 
