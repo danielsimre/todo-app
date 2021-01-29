@@ -47,7 +47,7 @@ function TaskComponent(props: Task): JSX.Element {
     <form>
       <h2>
         {props.attributes.title}
-        <input type="checkbox" onChange={() => handleChange(props)} defaultChecked={props.attributes.status} />
+        <input type="checkbox" onChange={() => handleChange(props)} checked={props.attributes.status} />
       </h2>
       <p>{props.attributes.description}</p>
       <button type="button" onClick={() => handleDelete(props.id)}>Delete</button>
