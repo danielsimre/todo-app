@@ -1,11 +1,15 @@
 import * as React from "react";
 import { Formik, Field, Form } from "formik";
 
+// This task definition excludes user-id and task id, which are not known
+// before creating a task
 interface Task {
+    type: "tasks";
     attributes: {
-        title: string,
-        description: string,
-        status: boolean,
+      title: string,
+      description: string;
+      status: boolean;
+      "tag-list": string[];
     }
 }
 
@@ -39,6 +43,7 @@ function AddTaskForm(): JSX.Element {
                         title: "",
                         description: "",
                         status: false,
+                        "tag-list": []
                     },
                 }}
                 onSubmit={handleSubmit}

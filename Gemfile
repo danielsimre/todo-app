@@ -60,3 +60,6 @@ gem 'jsonapi-resources'
 
 # Authentication for user login
 gem 'devise'
+
+# Tagging system
+gem 'acts-as-taggable-on', '~> 7.0'

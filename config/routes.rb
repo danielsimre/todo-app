@@ -5,16 +5,12 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do
-      jsonapi_resources :users do
-        jsonapi_related_resources :tasks do
-          jsonapi_related_resources :tags
-        end
-      end
+      jsonapi_resources :users
       jsonapi_resources :tasks
-      jsonapi_resources :tags
-      jsonapi_resources :tag_tasks
     end
   end
+
+
   
   devise_for :users
 

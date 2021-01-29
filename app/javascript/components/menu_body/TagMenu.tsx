@@ -2,32 +2,9 @@ import * as React from "react";
 import Popup from "reactjs-popup";
 import AddTagForm from "./tag_menu_components/AddTagForm";
 import TagComponent from "./tag_menu_components/TagComponent";
-
-interface Tag {
-    type: string,
-    id: number,
-    attributes: {
-        name: string,
-        "task-id": number;
-    }
-}
-
-interface Task {
-    taskid: number;
-}
+import Task from "../../types/Task";
 
 function TagMenu(props: Task): JSX.Element {
-    const [tags, settags] = React.useState<Tag[]>([]);
-
-    React.useEffect(() => {
-        const requestTags = async () => {
-            const response = await fetch("/api/v1/tasks/" + props.taskid + "/tags/");
-            const { data } = await response.json();
-            settags(data);
-        };
-        requestTags();
-    }, []);
-
     return <Popup trigger={<button className="button"> Manage Tags </button>}
         modal
         nested>
@@ -42,8 +19,8 @@ function TagMenu(props: Task): JSX.Element {
           You can add up to ten tags for each task.
         </div>
                 <div className="actions">
-                    <AddTagForm taskid={props.taskid} />
-                    <>{tags.map(tag => <TagComponent attributes={tag.attributes} id={tag.id} type={"tags"} />)}</>
+                    <AddTagForm id={props.id} attributes={props.attributes} type = {"tasks"}/>
+                    <>{props.attributes["tag-list"].map(tagName => <TagComponent tagName={tagName} task = {props}/>)}</>
                 </div>
             </div>
         )}

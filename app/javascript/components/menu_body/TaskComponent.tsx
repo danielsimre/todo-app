@@ -1,16 +1,6 @@
 import * as React from "react";
 import TagMenu from "./TagMenu";
-
-type Task = {
-  type: string;
-  id: number;
-  attributes: {
-    title: string,
-    description: string;
-    status: boolean;
-    user_id: number;
-  }
-}
+import Task from "../../types/Task"
 
 function TaskComponent(props: Task): JSX.Element {
   // Delete selected entry
@@ -62,7 +52,7 @@ function TaskComponent(props: Task): JSX.Element {
       <p>{props.attributes.description}</p>
       <button type="button" onClick={() => handleDelete(props.id)}>Delete</button>
     </form>
-    <TagMenu taskid = {props.id}/>
+    <TagMenu attributes = {props.attributes} id = {props.id} type = {props.type} />
   </div>);
 }
 
