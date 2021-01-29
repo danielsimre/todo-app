@@ -4,7 +4,6 @@ import Task from "../../types/Task";
 
 interface Tag {
     name: string;
-    id: number;
 }
 
 interface setTaskFunction {
@@ -14,7 +13,7 @@ interface setTaskFunction {
 function TagSearchBar(props: setTaskFunction): JSX.Element {
     const handleSubmit = (values: Tag) => {
         const requestTasks = async () => {
-            const response = await fetch("/api/v1/tasks/");
+            const response = await fetch("/api/v1/tasks?filter[tag_list]=" + values.name);
             const { data } = await response.json();
             props.setTasks(data);
         };
@@ -23,14 +22,13 @@ function TagSearchBar(props: setTaskFunction): JSX.Element {
 
     return <Formik
         initialValues={{
-            id: 0,
             name: ""
         }}
         onSubmit={handleSubmit}
         render={() => (
             <Form>
                 <label htmlFor="name"> Search for a tag: </label>
-                <Field type="text" id="name" name="attributes.tag-list[0]" />
+                <Field type="text" id="name" name="name" />
                 <button type="submit">Search</button>
             </Form>
         )}></Formik>
