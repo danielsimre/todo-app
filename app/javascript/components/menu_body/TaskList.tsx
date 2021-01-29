@@ -11,16 +11,12 @@ interface Task {
   }
 }
 
-interface User {
-  userid: number;
-}
-
-function TaskList(props: User): JSX.Element {
+function TaskList(): JSX.Element {
   const [tasks, setTasks] = React.useState<Task[]>([]);
 
   React.useEffect(() => {
     const requestTasks = async () => {
-      const response = await fetch("/api/v1/users/"+ props.userid +"/tasks/");
+      const response = await fetch("/api/v1/tasks");
       const { data } = await response.json();
       setTasks(data);
     };

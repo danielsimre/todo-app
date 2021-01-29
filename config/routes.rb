@@ -10,8 +10,9 @@ Rails.application.routes.draw do
           jsonapi_related_resources :tags
         end
       end
-      jsonapi_resources :tasks, except: [:index]
+      jsonapi_resources :tasks
       jsonapi_resources :tags
+      jsonapi_resources :tag_tasks
     end
   end
   

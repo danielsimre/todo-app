@@ -17,7 +17,7 @@ function AddTagForm(props: Task): JSX.Element {
     const handleSubmit = (values: Tag) => {
         const requestTags = async () => {
             const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
-            const response = await fetch("/api/v1/tags", {
+            const response = await fetch("/api/v1/tasks/" + props.taskid + "/tags", {
                 method: "POST",
                 credentials: "include",
                 headers: {

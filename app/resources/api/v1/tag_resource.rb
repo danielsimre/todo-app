@@ -1,5 +1,7 @@
 class Api::V1::TagResource < JSONAPI::Resource
-    attributes :name, :task_id
+    attributes :name
 
-    has_one :task, foreign_key: 'task_id'
+    has_many :tasks
+    
+    filter :name
 end

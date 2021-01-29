@@ -1,8 +1,8 @@
 class Task < ApplicationRecord
     belongs_to :user
 
-    has_many :tags
-    validates_associated :tags
+    has_many :tag_tasks, dependent: :destroy
+    has_many :tags, through: :tag_tasks
 
-    validates :title, :status, :user_id, presence: true
+    validates :title, :status, presence: true
 end

@@ -6,15 +6,10 @@ interface Task {
         title: string,
         description: string,
         status: boolean,
-        "user-id": number;
     }
 }
 
-interface User {
-    userid: number;
-}
-
-function AddTaskForm(props: User): JSX.Element {
+function AddTaskForm(): JSX.Element {
     const handleSubmit = (values: Task) => {
         const requestTasks = async () => {
             const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
@@ -44,7 +39,6 @@ function AddTaskForm(props: User): JSX.Element {
                         title: "",
                         description: "",
                         status: false,
-                        "user-id": props.userid
                     },
                 }}
                 onSubmit={handleSubmit}

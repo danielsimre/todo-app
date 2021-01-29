@@ -1,4 +1,5 @@
 class Tag < ApplicationRecord
-  belongs_to :task
-  validates :name, :task_id, presence: true
+  has_many :tag_tasks
+  has_many :tasks, through: :tag_tasks
+  validates :name, presence: true
 end
