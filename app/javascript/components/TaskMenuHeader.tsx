@@ -1,7 +1,6 @@
 import * as React from "react";
 import AddTaskForm from "./menu_header/AddTaskForm";
 import TagSearch from "./menu_header/TagSearchBar";
-import Task from "../types/Task"
 import {Segment} from "semantic-ui-react"
 
 interface setFilterFunction {

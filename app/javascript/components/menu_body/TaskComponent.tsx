@@ -48,6 +48,10 @@ function TaskComponent(props: Task): JSX.Element {
     requestTasks();
   }
 
+  React.useEffect(() => {
+     setTask(props)
+  }, [props]);
+
   return (<Segment color = "blue">
     <form style={{textAlign: "center"}}>
       <h2>
