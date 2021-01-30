@@ -11,7 +11,7 @@ function TaskMenu(): JSX.Element {
 
     React.useEffect(() => {
         const requestTasks = async () => {
-            const response = await fetch("/api/v1/tasks" + "?page[number]=" + activePage 
+            const response = await fetch("/api/v1/tasks?page[number]=" + activePage 
                                         + "&page[size]=5&filter[tag-list]=" + filterString);
             const { data } = await response.json();
             setTasks(data);
