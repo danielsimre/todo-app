@@ -4,6 +4,7 @@ import Task from "../../types/Task";
 import { Segment, Button, Checkbox } from "semantic-ui-react";
 
 function TaskComponent(props: Task): JSX.Element {
+  const [task, setTask] = React.useState<Task>(props);
   // Delete selected entry
   const handleDelete = (id: number) => {
     const requestTasks = async () => {
@@ -25,7 +26,9 @@ function TaskComponent(props: Task): JSX.Element {
 
   // Update database when task has been marked as complete/incomplete
   const handleChange = (values: Task) => {
-    values.attributes.status = !values.attributes.status;
+    // Deep copy the previous state of task
+    let newValues = JSON.parse(JSON.stringify(values));
+    newValues.attributes.status = !values.attributes.status;
     const requestTasks = async () => {
       const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
       const response = await fetch("/api/v1/tasks/" + values.id, {
@@ -35,10 +38,11 @@ function TaskComponent(props: Task): JSX.Element {
           "Content-Type": "application/vnd.api+json",
           "X-CSRF-Token": csrfToken
         },
-        body: JSON.stringify({ data: values })
+        body: JSON.stringify({ data: newValues })
       });
       if (response.status === 200) {
-        window.location.reload();
+        // Updates the checkbox accordingly. Will only work with a deep copy
+        setTask(newValues);
       }
     };
     requestTasks();
@@ -48,13 +52,13 @@ function TaskComponent(props: Task): JSX.Element {
     <form style={{textAlign: "center"}}>
       <h2>
         {props.attributes.title + " "} 
-        <Checkbox type="checkbox" onChange={() => handleChange(props)} checked={props.attributes.status} />
+        <Checkbox type="checkbox" onChange={() => handleChange(task)} checked={task.attributes.status} />
       </h2>
       <p>{props.attributes.description}</p>
-      <Button type="button" onClick={() => handleDelete(props.id)}>Delete</Button>
+      <Button type="button" onClick={() => handleDelete(task.id)}>Delete</Button>
     </form>
     <div style={{textAlign: "center"}}>
-    <TagMenu attributes = {props.attributes} id = {props.id} type = {props.type} />
+    <TagMenu attributes = {task.attributes} id = {task.id} type = {task.type} />
     </div>
   </Segment>);
 }

@@ -14,7 +14,7 @@
  *= require_self
  */
 
-.task-container, .task-header, .task-menu, html, nav {
+.task-container, .task-header, .task-menu, nav {
     background-color: rgb(252, 222, 184);
 }
 
