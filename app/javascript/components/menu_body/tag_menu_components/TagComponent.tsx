@@ -1,6 +1,6 @@
 import * as React from "react";
 import Task from "../../../types/Task"
-
+import { Button } from "semantic-ui-react";
 
 interface Tag {
     tagName: string;
@@ -30,9 +30,14 @@ function TagComponent(props: Tag): JSX.Element {
     requestTasks();
   }
 
-    return <div><form>
-         {props.tagName} <button type="button" onClick={() => handleDelete()}>X</button>
-    </form></div>;
+    return <form>
+         <div style={{fontSize: "16px"}}>{props.tagName + " "}
+         <Button type="button" 
+                 onClick={() => handleDelete()}
+                 size='mini'
+                 icon='remove'>
+         </Button></div> 
+    </form>;
 }
 
 export default TagComponent;

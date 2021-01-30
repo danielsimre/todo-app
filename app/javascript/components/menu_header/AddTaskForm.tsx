@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Formik, Field, Form } from "formik";
+import { Button } from "semantic-ui-react";
 
-// This task definition excludes user-id and task id, which are not known
-// before creating a task
+/* This task definition excludes user-id and task id, which are not known
+   before creating a task
+*/
 interface Task {
     type: "tasks";
     attributes: {
@@ -13,7 +15,22 @@ interface Task {
     }
 }
 
+const TITLE_MINIMUM = 4;
+const TITLE_MAXIMUM = 50;
+
 function AddTaskForm(): JSX.Element {
+    // Ensures titles are between 4 to 50 characters long
+    const validateTitle = (title: string) => {
+        let error: string = "";
+        if (!title) {
+            error = "You must input a title for the task."
+        } else if(title.length < TITLE_MINIMUM || title.length > TITLE_MAXIMUM) {
+            error = "Title length must be between " + TITLE_MINIMUM   
+            + " and " + TITLE_MAXIMUM + " characters long."
+        }
+        return error;
+    }
+
     const handleSubmit = (values: Task) => {
         const requestTasks = async () => {
             const csrfToken = (document.querySelector("meta[name=csrf-token]") as HTMLMetaElement).content;
@@ -35,7 +52,7 @@ function AddTaskForm(): JSX.Element {
 
     return (
         <div>
-            <h2>Add your task</h2>
+            <h2>Create a task</h2>
             <Formik
                 initialValues={{
                     type: "tasks",
@@ -47,13 +64,14 @@ function AddTaskForm(): JSX.Element {
                     },
                 }}
                 onSubmit={handleSubmit}
-                render={() => (
+                render={({errors, touched}) => (
                     <Form>
-                        <label htmlFor="title">  Title: </label>
-                        <Field type="text" id="title" name="attributes.title" />
-                        <label htmlFor="title">  Description: </label>
-                        <Field type="text" id="description" name="attributes.description" />
-                        <button type="submit">Create</button>
+                        <label htmlFor="title" style={{marginRight: '125px'}}>  Title: </label>
+                        <Field type="text" id="title" name="attributes.title" validate={validateTitle}/> <br/>
+                        {errors.attributes && touched.attributes && <div>{errors.attributes.title}</div>}
+                        <label htmlFor="title">  Description (Optional): </label> 
+                        <Field type="text" id="description" name="attributes.description" /> <br/> <br/>
+                        <Button type="submit">Create</Button>
                     </Form>
                 )}
             />

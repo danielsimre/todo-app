@@ -1,0 +1,19 @@
+html, nav, body{
+    background-color: rgb(252, 222, 184);
+}
+
+h2 {
+    text-align: center;
+    margin: auto;
+    padding-top: 15%;
+}
+
+.form {
+    background-color: rgb(189, 238, 250);
+    text-align: center;
+    margin: auto;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    width: min-content;
+}

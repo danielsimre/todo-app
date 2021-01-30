@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do
-      jsonapi_resources :users
+      jsonapi_resources :users, except: [:index]
       jsonapi_resources :tasks
     end
   end

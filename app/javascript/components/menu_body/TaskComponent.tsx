@@ -1,6 +1,7 @@
 import * as React from "react";
 import TagMenu from "./TagMenu";
-import Task from "../../types/Task"
+import Task from "../../types/Task";
+import { Segment, Button, Checkbox } from "semantic-ui-react";
 
 function TaskComponent(props: Task): JSX.Element {
   // Delete selected entry
@@ -43,17 +44,19 @@ function TaskComponent(props: Task): JSX.Element {
     requestTasks();
   }
 
-  return (<div className="taskcontainer">
-    <form>
+  return (<Segment color = "blue">
+    <form style={{textAlign: "center"}}>
       <h2>
-        {props.attributes.title}
-        <input type="checkbox" onChange={() => handleChange(props)} checked={props.attributes.status} />
+        {props.attributes.title + " "} 
+        <Checkbox type="checkbox" onChange={() => handleChange(props)} checked={props.attributes.status} />
       </h2>
       <p>{props.attributes.description}</p>
-      <button type="button" onClick={() => handleDelete(props.id)}>Delete</button>
+      <Button type="button" onClick={() => handleDelete(props.id)}>Delete</Button>
     </form>
+    <div style={{textAlign: "center"}}>
     <TagMenu attributes = {props.attributes} id = {props.id} type = {props.type} />
-  </div>);
+    </div>
+  </Segment>);
 }
 
 export default TaskComponent;

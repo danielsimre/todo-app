@@ -7,6 +7,8 @@ class Api::V1::TaskResource < JSONAPI::Resource
     filter :tag_list, apply: ->(records, value, _options) {
         if value[0] === "exclude"
             @user.tasks.tagged_with(value[1..-1], :exclude => true);
+        elsif value[0] === "clearsq"
+            @user.tasks
         else
             @user.tasks.tagged_with(value, :any => true);
         end
@@ -20,5 +22,10 @@ class Api::V1::TaskResource < JSONAPI::Resource
     def self.records(options = {})
           @user = options[:context][:current_user]
           @user.tasks
+    end
+
+    / Sort by showing uncompleted tasks first, then completed tasks /
+    def self.default_sort
+        [{field: 'status', direction: :asc}]
     end
 end

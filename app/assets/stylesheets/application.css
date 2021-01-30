@@ -14,20 +14,18 @@
  *= require_self
  */
 
- .taskcontainer {
-    
-    height: 150px;
-    width: 300px;
-    background-color: rgb(28, 199, 241);
-    color: rgb(12, 9, 9);
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 15px;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    width: 250px;
-    word-wrap: break-word;
+.task-container, .task-header, .task-menu, html, nav {
+    background-color: rgb(252, 222, 184);
+}
+
+.task-container {
+    width: 40%;
+    margin: auto;
+}
+
+.task-header {
+    width: 75%;
+    margin: auto;
 }
 
 .modal {
@@ -37,8 +35,8 @@
     border-color: black;
     border-width: 1px;
     border-style: solid;
-    height: 300px;
-    width: 300px;
+    height: 45%;
+    width: 100%; 
   }
   .modal > .header {
     width: 97%;
@@ -50,6 +48,7 @@
   .modal > .content {
     width: 100%;
     padding: 10px 5px;
+    text-align: center;
   }
   .modal > .actions {
     width: 100%;
@@ -88,7 +87,27 @@
       box-shadow: 0 0 500px rgba(241, 241, 241, 0);
     }
   }
-  .popup-content {
+.popup-content {
     animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
     -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
-  }
+}
+
+.alert {
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  background-color: rgb(255, 110, 110);
+}
+
+.notice{
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  background-color: rgb(35, 214, 18);
+}
+
+div:empty{
+  border-width: 0px;
+}

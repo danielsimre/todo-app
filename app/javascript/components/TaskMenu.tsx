@@ -14,7 +14,7 @@ function TaskMenu(): JSX.Element {
         };
         requestTasks();
     }, []);
-    return (<div><TaskMenuHeader setTasks = {setTasks}/> <br /> <TaskList tasks = {tasks} /></div>)
+    return (<div className = "task-menu"><TaskMenuHeader setTasks = {setTasks}/> <br /> <TaskList tasks = {tasks} /></div>)
 }
 
 
