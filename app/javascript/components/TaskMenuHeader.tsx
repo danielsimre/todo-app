@@ -4,13 +4,13 @@ import TagSearch from "./menu_header/TagSearchBar";
 import Task from "../types/Task"
 import {Segment} from "semantic-ui-react"
 
-interface setTaskFunction {
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+interface setFilterFunction {
+    setFilterString: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function TaskMenuHeader(props: setTaskFunction): JSX.Element {
+function TaskMenuHeader(props: setFilterFunction): JSX.Element {
     return (<div className = "task-header"><Segment raised color ="blue" textAlign ="center" size ={"large"}>
-        <AddTaskForm/><br/><TagSearch setTasks = {props.setTasks}/></Segment></div>)
+        <AddTaskForm/><br/><TagSearch setFilterString = {props.setFilterString}/></Segment></div>)
 }
 
 export default TaskMenuHeader;

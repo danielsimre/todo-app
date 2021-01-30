@@ -28,6 +28,11 @@
     margin: auto;
 }
 
+.paginator {
+    margin: auto;
+    text-align: center;
+}
+
 .modal {
     font-size: 12px;
     background-color: rgb(206, 206, 206);

@@ -7,7 +7,8 @@ class Api::V1::TaskResource < JSONAPI::Resource
     filter :tag_list, apply: ->(records, value, _options) {
         if value[0] === "exclude"
             @user.tasks.tagged_with(value[1..-1], :exclude => true);
-        elsif value[0] === "clearsq"
+        / Show all user tasks if user inputs nothing /
+        elsif value[0] === nil
             @user.tasks
         else
             @user.tasks.tagged_with(value, :any => true);

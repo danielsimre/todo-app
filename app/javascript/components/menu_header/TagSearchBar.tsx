@@ -1,30 +1,26 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikState } from "formik";
-import Task from "../../types/Task";
 import { Button, Popup } from "semantic-ui-react";
 
 interface Tag {
     name: string;
 }
 
-interface setTaskFunction {
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+interface setFilterFunction {
+    setFilterString: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const text = <div><p>To search for multiple tags, separate each word with commas. </p>
                 <p> To search by exclusion, start your search with 'exclude', followed
-                    by the tags you want to exclude separated by commas. </p>
-                <p> For example, a valid search would be: exclude, tag1, tag2 </p>
-                <p> To display all tasks (without filtering), type in clearsq to reset the task menu. </p></div>
+                    by the tags you want to exclude separated by commas. For example, a valid search would be: exclude, tag1, tag2 </p>
+                <p> To display all tasks (without filtering), leave the search bar blank and click search to reset the task menu. </p></div>
 
-function TagSearchBar(props: setTaskFunction): JSX.Element {
+function TagSearchBar(props: setFilterFunction): JSX.Element {
+    /* Pass back the filter string to TaskMenu, which will then
+       fetch from the api with the parameters given by the user.
+    */
     const handleSubmit = (values: Tag, resetForm: (nextState?: Partial<FormikState<Tag>>) => void) => {
-        const requestTasks = async () => {
-            const response = await fetch("/api/v1/tasks?filter[tag_list]=" + values.name);
-            const { data } = await response.json();
-            props.setTasks(data);
-        };
-        requestTasks();
+        props.setFilterString(values.name);
         resetForm({});
     };
 
